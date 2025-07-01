@@ -33,6 +33,11 @@ public class AlunoController {
         return ResponseEntity.ok().body(alunoService.listarPorID(id));
     }
 
+    @GetMapping(path = "/turmas")
+    public ResponseEntity<List<AlunoResponseDTO>> listarPorTurma(@RequestParam(name = "turma") String turma) {
+        return ResponseEntity.ok().body(alunoService.listarPorTurma(turma));
+    }
+
     @PutMapping(path = "/{id}")
     public ResponseEntity<AlunoResponseDTO> atualizar(@PathVariable Long id,
                                                       @RequestBody @Valid AlunoRequestDTO requestDTO) {

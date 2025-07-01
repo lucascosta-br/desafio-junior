@@ -47,6 +47,19 @@ public class AlunoService {
                 .orElseThrow(() -> new AlunoNotFoundException("Aluno não encontrado!"));
     }
 
+    public List<AlunoResponseDTO> listarPorTurma(String turma) {
+        logger.info("Listando Alunos por Turma");
+
+        var alunos = alunoRepository.findByTurma(turma);
+
+        if (alunos.isEmpty()) {
+            logger.warn("Nenhum aluno encontrado para a turma '{}'", turma);
+            throw new AlunoNotFoundException("Turma não encontrada ou sem alunos cadastrados");
+        }
+
+        return alunoMapper.toResponseList(alunos);
+    }
+
     public AlunoResponseDTO atualizar(Long id, AlunoRequestDTO requestDTO) {
         logger.info("Atualizando um Aluno");
 
